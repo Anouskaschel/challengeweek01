@@ -2,9 +2,8 @@
 import random
 
 
-capital_player_one = int()
-print(capital_player_one)
-capital_player_two = int()
+capital_player_one = 0
+capital_player_two = 0
 
 
 def roll_dice():
