@@ -75,7 +75,12 @@ question = [
     ["In welk land is het gebruikelijk om borden in een restaurant te gooien?", "A. Griekenland\nB. Frankrijk\nC. Portugal", "A"],
     ["Hoe noem je iemand uit India?", "A. Indiaan\nB. Indiër\nC. Indiander", "B"],
     ["Welk land wordt ook wel het land van de glimlach genoemd?", "A. Thailand\nB. China\nC. Japan", "A"],
-    ["Wat is de hoofdstad van Gelderland?", "A. Nijmegen\nB. Apeldoorn\nC. Arnhem", "C"]
+    ["Wat is de hoofdstad van Gelderland?", "A. Nijmegen\nB. Apeldoorn\nC. Arnhem", "C"],
+    ["Welke Nederlandse stad wordt ook wel de sleutelstad genoemd?", "A. Leiden\nB. Utrecht\nC. Amsterdam", "A"],
+    ["Hoeveel kleuren zitten er in een regenboog?", "A. 6\nB. 7\nC. 8", "B"],
+    ["Wat is de beste combinatie van vijf kaarten in een spel poker?", "A. Straight flush\nB. Royal Flush\nC. FOur of a kind", "B"],
+    ["Wat is de naam van de grootste vulkaan in Italië?", "A. Pompeii\nB. Stromboli\nC. Etna", "C"],
+    ["Wat is het Romeinse cijfer 'C'?", "A. 10\nB. 100\nC. 1000", "B"]
 ]
 
 def camper_item():
@@ -133,9 +138,6 @@ def build_accommodation():
         print("Kies 1 van de opties.")
     return budget
 
-# def choose_answer():
-
-
 
 if new_place % 5 == 0:
     choose_item = input("Je mag een stuk van de camper construeren.")
@@ -153,15 +155,18 @@ elif new_place == 7 or list(str(new_place))[1] == "7":
         build_accommodation()
 elif new_place == 24:
     print("Je krijgt een multiplechoice vraag. Hiermee kan je geld verdienen.")
+    # A random question is put in the variable
     random_question = (random.choice(question))
     correct_answer = random_question[2]
+    # Show first the question and after that the choices
     print(random_question[0])
     print(random_question[1])
     answer = input("Wat is je antwoord? ").upper()
+    # It is true when the user input is the same as the asnwer
     if answer == random_question[2]:
+        budget += 200
         print("Gefeliciteerd! Je hebt 200 florins verdiend.")
     else:
         print(f"Helaas het antwoord was {correct_answer}.")
-    # choose_answer()
 else:
     print("Fail")
