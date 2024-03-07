@@ -119,10 +119,10 @@ while True:
 
             capital_player_two = meaning_box(position_player_two, capital_player_two)
 
-            print("PLAYER 2: ")
+            print(f"PLAYER 2:\n {dice_roll} \n New position: {position_player_two} \n New capital: {capital_player_two}")
             print(dice_roll)
-            print("New position:", position_player_two)
-            print("New capital:", capital_player_two)
+            print(f"New position: {position_player_two}")
+            print(f"New capital: {capital_player_two}")
 
         elif move_num % 2 != 0:
             position_player_one = move_player(position_player_one)
