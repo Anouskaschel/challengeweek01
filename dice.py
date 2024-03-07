@@ -80,7 +80,12 @@ question = [
     ["Hoeveel kleuren zitten er in een regenboog?", "A. 6\nB. 7\nC. 8", "B"],
     ["Wat is de beste combinatie van vijf kaarten in een spel poker?", "A. Straight flush\nB. Royal Flush\nC. FOur of a kind", "B"],
     ["Wat is de naam van de grootste vulkaan in Italië?", "A. Pompeii\nB. Stromboli\nC. Etna", "C"],
-    ["Wat is het Romeinse cijfer 'C'?", "A. 10\nB. 100\nC. 1000", "B"]
+    ["Wat is het Romeinse cijfer 'C'?", "A. 10\nB. 100\nC. 1000", "B"],
+    ["Welke Nederlandse provincie heeft de meeste inwoners?", "A. Noord-Holland\nB. Zuid-Holland\nC. Utrecht", "B"],
+    ["Uit hoeveel zetels bestaat de Eerste kamer?", "A. 75\nB. 100\nC. 125", "A"],
+    ["Wat is het grootste dier op aarde?", "A. Blauwe vinvis\nB. Potvis\nC. Walvishaai", "A"],
+    ["Welke kleur cap heeft de keeper bij waterpolo?", "A. Rood\nB. Zwart\nC. Blauw", "A"],
+    ["In welk jaar ging de film Shrek in premiere?", "A.1999\nB. 2000\nC. 2001", "C"]
 ]
 
 def camper_item():
@@ -165,7 +170,7 @@ elif new_place == 24:
     # It is true when the user input is the same as the asnwer
     if answer == random_question[2]:
         budget += 200
-        print("Gefeliciteerd! Je hebt 200 florins verdiend.")
+        print(f"Gefeliciteerd! Je hebt 200 florins verdiend. \nJe budget is nu {budget}")
     else:
         print(f"Helaas het antwoord was {correct_answer}.")
 else:
