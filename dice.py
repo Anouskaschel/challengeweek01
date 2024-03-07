@@ -198,8 +198,6 @@ while True:
 
             print(f"PLAYER 2:\n {dice_roll} \n New position: {position_player_two} \n New capital: {capital_player_two}")
             print(dice_roll)
-            print(f"New position: {position_player_two}")
-            print(f"New capital: {capital_player_two}")
 
         elif move_num % 2 != 0:
             position_player_one = move_player(position_player_one)
@@ -207,10 +205,8 @@ while True:
 
             capital_player_one = meaning_box(player_turn, position_player_one, capital_player_one)
 
-            print("PLAYER 1: ")
+            print(f"PLAYER 1:\n {dice_roll} \n New position: {position_player_one} \n New capital: {capital_player_one}")
             print(dice_roll)
-            print("New position:", position_player_one)
-            print("New capital:", capital_player_one)
 
     elif roll != "r":
         print("Input error")
