@@ -1,4 +1,4 @@
-# import random
+import random
 
 # capital_player_one = 0
 # capital_player_two = 0
@@ -45,7 +45,7 @@
 #         # print(new_place[1])
 # else:
 #     print("Fail")
-new_place = 27
+new_place = 24
 budget = 1000
 
 camper = [
@@ -63,6 +63,19 @@ accommodation = [
     "Caravan - 100 florins",
     "Bungalow - 500 florins",
     "Vakantie villa - 1000 florins"
+]
+
+question = [
+    ["Hoeveel continenten zijn er?", "A. 4\nB. 5\nC. 6", "C"],
+    ["Wat is het element AU?", "A. Goud\n B. Zilver\n C. Brons", "A"],
+    ["Hoeveel poten heeft een spin", "A. 8\nB. 7\nC. 6", "A"],
+    ["In welk jaar begon de Tweede Wereldoorlog?", "A. 1938\nB. 1939\nC. 1940", "B"],
+    ["Wie heeft het schilderij 'Meisje met de parel' geschilderd?", "A. Vincent van Gogh\nB. Piet Mondriaan\nC. Johannes Vermeer", "C"],
+    ["Wat is het getal 333 in hexadecimaal?", "A. 14B \n B. 14C \n C. 14D", "C"],
+    ["In welk land is het gebruikelijk om borden in een restaurant te gooien?", "A. Griekenland\nB. Frankrijk\nC. Portugal", "A"],
+    ["Hoe noem je iemand uit India?", "A. Indiaan\nB. Indiër\nC. Indiander", "B"],
+    ["Welk land wordt ook wel het land van de glimlach genoemd?", "A. Thailand\nB. China\nC. Japan", "A"],
+    ["Wat is de hoofdstad van Gelderland?", "A. Nijmegen\nB. Apeldoorn\nC. Arnhem", "C"]
 ]
 
 def camper_item():
@@ -120,7 +133,8 @@ def build_accommodation():
         print("Kies 1 van de opties.")
     return budget
 
-# choose_accommodation, budget = build_accommodation()
+# def choose_answer():
+
 
 
 if new_place % 5 == 0:
@@ -134,8 +148,20 @@ elif new_place == 26 or new_place == 46 or new_place == 66 or new_place == 86:
     print("Je budget is nu:", budget)
 elif new_place == 7 or list(str(new_place))[1] == "7":
     print("Je kan een accommodatie bouwen.")
-    for j in accommodation:
-        print(j)
+    for i in accommodation:
+        print(i)
         build_accommodation()
+elif new_place == 24:
+    print("Je krijgt een multiplechoice vraag. Hiermee kan je geld verdienen.")
+    random_question = (random.choice(question))
+    correct_answer = random_question[2]
+    print(random_question[0])
+    print(random_question[1])
+    answer = input("Wat is je antwoord? ").upper()
+    if answer == random_question[2]:
+        print("Gefeliciteerd! Je hebt 200 florins verdiend.")
+    else:
+        print(f"Helaas het antwoord was {correct_answer}.")
+    # choose_answer()
 else:
     print("Fail")
