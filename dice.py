@@ -45,7 +45,7 @@
 #         # print(new_place[1])
 # else:
 #     print("Fail")
-new_place = 5
+new_place = 27
 budget = 1000
 
 camper = [
@@ -124,7 +124,7 @@ def build_accommodation():
 
 
 if new_place % 5 == 0:
-    camper_item = input("Je mag een stuk van de camper construeren.")
+    choose_item = input("Je mag een stuk van de camper construeren.")
     for i in camper:   
         print(i)
         camper_item()
@@ -132,7 +132,7 @@ elif new_place == 26 or new_place == 46 or new_place == 66 or new_place == 86:
     print("Je hebt helaas autopech. Je moet 250 florins betalen.")
     budget = budget - 250
     print("Je budget is nu:", budget)
-elif new_place == 7:
+elif new_place == 7 or list(str(new_place))[1] == "7":
     print("Je kan een accommodatie bouwen.")
     for j in accommodation:
         print(j)
