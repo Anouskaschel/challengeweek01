@@ -3,8 +3,8 @@ import random
 
 position_player_one = 0
 position_player_two = 0
-capital_player_one = 0
-capital_player_two = 0
+capital_player_one = 1000
+capital_player_two = 1000
 move_num = 0
 budget = 1000
 camper = [
@@ -16,7 +16,7 @@ camper = [
     "Leefruimte - 45 florins",
     "WC - 5 florins"
 ]
-
+purchased_boxes = {}
 
 def print_board():
     for i in range(1, 101):
@@ -36,7 +36,7 @@ def roll_dice():
 
 
 def move_player(old_place):
-    new_place = old_place + capital
+    new_place = (old_place + capital) % 100
     return new_place
 
 
@@ -92,12 +92,89 @@ def car_accident_box(capital):
     return capital
 
 
-def meaning_box(position, capital):
+def pay_player(cost, owner):
+    if owner[-1] == "1":
+        global capital_player_one 
+        capital_player_one += cost
+    elif owner[-1] == "2":
+        global capital_player_two 
+        capital_player_two += cost
+
+def build_accommodation(player, position, capital):
+
+    property_player = purchased_boxes.get(position)
+
+    while True:
+        choose_accommodation = input("Kies een accommodatie. Als je niks wilt bouwen kies dan n ").lower()
+        if choose_accommodation == "tent":
+            if property_player and property_player == player:
+                print("In dit vakje staat al een tent")
+            elif property_player:
+                print(f"In dit vakje staat de tent van {property_player}. {player} moet betalen aan {property_player}")
+                capital -= 25
+                pay_player(25, property_player)
+            else:
+                print("Je hebt voor de tent gekozen.")
+                capital -= 50
+                print("Je budget is nu:", capital)
+            break
+        elif choose_accommodation == "caravan":
+            if property_player == player:
+                print("In dit vakje staat al een caravan")
+            elif property_player:
+                print(f"In dit vakje staat de caravan van {property_player}. {player} moet betalen aan {property_player}")
+                capital -= 50
+                pay_player(50, property_player)
+            else:
+                capital -= 100
+                print("Je hebt voor de caravan gekozen.")
+                print("Je budget is nu:", capital)
+            break
+        elif choose_accommodation == "bungalow":
+            if property_player == player:
+                print("In dit vakje staat al een bungalow")
+            elif property_player:
+                print(f"In dit vakje staat de bungalow van {property_player}. {player} moet betalen aan {property_player}")
+                capital -= 250
+                pay_player(250, property_player)
+            else:
+                print("Je hebt voor de bungalow gekozen.")
+                capital -= 500
+                print("Je budget is nu:", capital)
+            break
+        elif choose_accommodation == "vakantie villa":
+            if property_player == player:
+                print("In dit vakje staat al een vakantie villa")
+            elif property_player:
+                print(f"In dit vakje staat de vakantie villa van {property_player}. {player} moet betalen aan {property_player}")
+                capital -= 500
+                pay_player(500, property_player)
+            else:
+                print("Je hebt voor de vakantie villa gekozen.")
+                capital -= 1000
+                print("Je budget is nu:", capital)
+            break
+        elif choose_accommodation == "n":
+            print("Je wilt geen accommodatie bouwen. De volgende speler is aan de beurt.")
+            return capital
+        else:
+            print("Kies 1 van de opties.")
+            continue
+
+    purchased_boxes[position] = player
+    # print(purchased_boxes)
+    return capital
+
+
+def meaning_box(player, position, capital):
     if position % 5 == 0:
         new_capital = camper_item(capital)
 
     elif position == 26 or position == 46 or position == 66 or position == 86:
         new_capital = car_accident_box(capital)
+
+    elif position % 10 == 7 and position != 7:
+        new_capital = build_accommodation(player, position, capital)
 
     else:
         return capital
@@ -107,8 +184,8 @@ def meaning_box(position, capital):
 
 while True:
     move_num += 1
-    player_turn = str(move_num % 2 - 2)[1:]
-    roll = input(f"PLAYER {player_turn} Roll the dice using r: ")
+    player_turn = "PLAYER" + " " + str(move_num % 2 - 2)[1:]
+    roll = input(f"{player_turn} Roll the dice using r: ")
     if roll == "r":
         dice_one, dice_two, capital = roll_dice()
         dice_roll = f"Dice 1: {dice_one}, Dice 2: {dice_two}"
@@ -117,7 +194,7 @@ while True:
             position_player_two = move_player(position_player_two)
             capital_player_two += capital
 
-            capital_player_two = meaning_box(position_player_two, capital_player_two)
+            capital_player_two = meaning_box(player_turn, position_player_two, capital_player_two)
 
             print("PLAYER 2: ")
             print(dice_roll)
@@ -128,7 +205,7 @@ while True:
             position_player_one = move_player(position_player_one)
             capital_player_one += capital
 
-            capital_player_one = meaning_box(position_player_one, capital_player_one)
+            capital_player_one = meaning_box(player_turn, position_player_one, capital_player_one)
 
             print("PLAYER 1: ")
             print(dice_roll)
@@ -137,5 +214,6 @@ while True:
 
     elif roll != "r":
         print("Input error")
+        move_num -= 1
     else:
         print("Fail")
