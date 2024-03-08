@@ -149,11 +149,20 @@ def item_shop(capital, owner):
       
     if not 0 in count_items:
         print("Je hebt een voledige camper set verzamelt!")
-        camper_construeren = input("Wil jij deze set verkopen voor de dubbele waarde? (ja/nee)").lower()
+        camper_construeren = input("Wil jij deze set verkopen voor de dubbele waarde (ja/nee)? ").lower()
         
         while True:
             if camper_construeren == "ja":
                 capital += 400
+                print("\nDit zijn de items die je overhoud: ")
+                for item_tup in camper_items.items():
+                    item = item_tup[0]
+                    camper_items[item]["count"] -= 1
+                    count = item_tup[1]["count"]
+                    print(f"{item} - hoeveelheid: {count}")
+                print()
+                break
+
             elif camper_construeren == "nee":
                 print("Je wilt de set niet verkopen \nDe volgende speler is aan de beurt \n")
                 break
@@ -161,11 +170,13 @@ def item_shop(capital, owner):
                 print("Je moet ja of nee kiezen")
     
     else:
-        print(f"Dit zijn de items die je hebt: \n")
+        print(f"Dit zijn de items die je hebt: ")
 
-        for item in camper_items.items():
-            print(item)
-
+        for item_tup in camper_items.items():
+            item = item_tup[0]
+            count = item_tup[1]["count"]
+            print(f"{item} - hoeveelheid: {count}")
+        print()
 
     return capital
 
@@ -278,9 +289,6 @@ def quiz(capital):
             capital += 200
             print(f"Gefeliciteerd! Je hebt 200 florins verdiend \n")
             break
-        elif answer != "A" or answer != "B" or answer != "C":
-            print("Invoer fout \nKies A, B of C")
-            continue
         else:
             print(f"Helaas het antwoord was {correct_answer} \n")
             break
