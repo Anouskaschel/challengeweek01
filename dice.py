@@ -7,20 +7,29 @@ position_player_two = 0
 capital_player_one = 1000
 capital_player_two = 1000
 move_num = 0
-camper_player_one = {"Chassis": 0, 
-          "Motor": 0, 
-          "Vier wielen": 0, 
-          "Carrosserie": 0, 
-          "Cabine": 0, 
-          "Leefruimte": 0,
-          "WC": 0}
-camper_player_two = {"Chassis": 0, 
-          "Motor": 0, 
-          "Vier wielen": 0, 
-          "Carrosserie": 0, 
-          "Cabine": 0, 
-          "Leefruimte": 0,
-          "WC": 0}
+camper = [
+    "Chassis - 60 florins",
+    "Motor - 20 florins",
+    "Vier wielen - 5 florins",
+    "Carrosserie - 20 florins",
+    "Cabine - 30 florins",
+    "Leefruimte - 45 florins",
+    "WC - 5 florins"
+]
+camper_player_one = {"chassis": {"price": 60, "count": 0},
+              "motor": {"price": 20, "count": 0}, 
+              "vier wielen": {"price": 5, "count": 0},
+              "carrosserie": {"price": 20, "count": 0}, 
+              "cabine": {"price": 30, "count": 0}, 
+              "leefruimte": {"price": 45, "count": 0},
+              "wc": {"price": 5, "count": 0}}
+camper_player_two = {"chassis": {"price": 60, "count": 0},
+              "motor": {"price": 20, "count": 0}, 
+              "vier wielen": {"price": 5, "count": 0},
+              "carrosserie": {"price": 20, "count": 0}, 
+              "cabine": {"price": 30, "count": 0}, 
+              "leefruimte": {"price": 45, "count": 0},
+              "wc": {"price": 5, "count": 0}}
 accommodation = [
     "Tent - 50 florins",
     "Caravan - 100 florins",
@@ -78,43 +87,85 @@ def item_shop(capital, owner):
     print("Kies 1 van de volgende items om je camper te construeren: ")
 
     while True:
+        
+        if owner[-1] == "1":
+            global camper_player_one 
+            camper_items = camper_player_one
+
+        elif owner[-1] == "2":
+            global camper_player_two 
+            camper_items = camper_player_two
 
         camper_str = "\n".join(camper)
         print(camper_str)
 
         camper_item = input().lower()
 
-        if camper_item == "chassis":
-            print("Je hebt de chassis gekozen\n")
-            capital -= 60
-            break
-        elif camper_item == "motor":
-            print("Je hebt de motor gekozen\n")
-            capital -= 20
-            break
-        elif camper_item == "vier wielen":
-            print("Je hebt de vier wielen gekozen\n")
-            capital -= 5
-            break
-        elif camper_item == "carrosserie":
-            print("Je hebt de carrosserie gekozen\n")
-            capital -= 20
-            break
-        elif camper_item == "cabine":
-            print("Je hebt de cabine gekozen\n")
-            capital -= 30
-            break
-        elif camper_item == "leefruimte":
-            print("Je hebt de leefruimte gekozen\n")
-            capital -= 45
-            break
-        elif camper_item == "wc":
-            print("Je hebt de wc gekozen\n")
-            capital -= 5
-            break
-        else:
+        try:
+            price = camper_items[camper_item]["price"]
+            count_items = []
+
+            if camper_item == "chassis":
+                print("Je hebt de chassis gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+            elif camper_item == "motor":
+                print("Je hebt de motor gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+            elif camper_item == "vier wielen":
+                print("Je hebt de vier wielen gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+            elif camper_item == "carrosserie":
+                print("Je hebt de carrosserie gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+            elif camper_item == "cabine":
+                print("Je hebt de cabine gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+            elif camper_item == "leefruimte":
+                print("Je hebt de leefruimte gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+            elif camper_item == "wc":
+                print("Je hebt de wc gekozen\n")
+                capital -= price
+                camper_items[camper_item]["count"] += 1
+                break
+        except:
             print("Je moet één van deze opties kiezen: ")
             continue
+
+    for item in camper_items.values():
+        count_items.append(item["count"])
+      
+    if not 0 in count_items:
+        print("Je hebt een voledige camper set verzamelt!")
+        camper_construeren = input("Wil jij deze set verkopen voor de dubbele waarde? (ja/nee)").lower()
+        
+        while True:
+            if camper_construeren == "ja":
+                capital += 400
+            elif camper_construeren == "nee":
+                print("Je wilt de set niet verkopen \nDe volgende speler is aan de beurt \n")
+                break
+            else:
+                print("Je moet ja of nee kiezen")
+    
+    else:
+        print(f"Dit zijn de items die je hebt: \n")
+
+        for item in camper_items.items():
+            print(item)
+
 
     return capital
 
@@ -218,56 +269,29 @@ def quiz(capital):
     random_question = (random.choice(question))
     correct_answer = random_question[2]
     # Show first the question and after that the choices
-    print(random_question[0])
-    print(random_question[1])
-    answer = input("Wat is je antwoord? ").upper()
-    # It is true when the user input is the same as the asnwer
-    if answer == random_question[2]:
-        capital += 200
-        print(f"Gefeliciteerd! Je hebt 200 florins verdiend \n")
-    elif answer != "A" or answer != "B" or answer != "C":
-        print("Invoer fout \nKies A, B of C")
-    else:
-        print(f"Helaas het antwoord was {correct_answer} \n")
-    
-    return capital
-
-
-def item_found(capital, owner):
-
-    if owner[-1] == "1":
-        global camper_player_one
+    while True:
+        print(random_question[0])
+        print(random_question[1])
+        answer = input("Wat is je antwoord? ").upper()
+        # It is true when the user input is the same as the asnwer
+        if answer == random_question[2]:
+            capital += 200
+            print(f"Gefeliciteerd! Je hebt 200 florins verdiend \n")
+            break
+        elif answer != "A" or answer != "B" or answer != "C":
+            print("Invoer fout \nKies A, B of C")
+            continue
+        else:
+            print(f"Helaas het antwoord was {correct_answer} \n")
+            break
         
-        while True:
-            camper_keys = list(camper_player_one.keys())
-            random_item = random.choice(camper_keys)
-            count_item = camper_player_one[random_item]
-
-            if count_item == 3:
-                continue
-            
-            elif not 0 in camper_player_one.values():
-                print("gefeliciteerd je kan een camper construeren!")
-                print(camper_player_one)
-                break
-
-            else:
-                print(f"Je hebt {random_item} gevonden")
-                camper_player_one[random_item] += 1
-
-    elif owner[-1] == "2":
-        global camper_player_two
-
-        while True:
-            camper_keys = list(camper_player_two.keys())
-            random_item = random.choice(camper_keys)
-    
     return capital
 
 
 def meaning_box(player, position, capital):
+
     if position % 5 == 0:
-        new_capital = item_shop(capital)
+        new_capital = item_shop(capital, player)
 
     elif position == 26 or position == 46 or position == 66 or position == 86:
         new_capital = car_accident_box(capital)
@@ -277,10 +301,6 @@ def meaning_box(player, position, capital):
 
     elif position % 10 == 8 and position != 18 and position != 38 and position != 58 and position != 78:
         new_capital = quiz(capital)
-
-    elif position % 10 == 9:
-        new_capital
-
 
     else:
         return capital
