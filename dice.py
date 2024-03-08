@@ -1,4 +1,5 @@
 import random
+import time
 
 
 position_player_one = 0
@@ -15,6 +16,12 @@ camper = [
     "Cabine - 30 florins",
     "Leefruimte - 45 florins",
     "WC - 5 florins"
+]
+accommodation = [
+    "Tent - 50 florins",
+    "Caravan - 100 florins",
+    "Bungalow - 500 florins",
+    "Vakantie villa - 1000 florins"
 ]
 purchased_boxes = {}
 question = [
@@ -47,11 +54,9 @@ def print_board():
         if i % 10 == 0:
             print()
 
-# Example usage:
-print_board()
-
 
 def roll_dice():
+
     dice_one = random.randint(1, 6)
     dice_two = random.randint(1, 6)
     capital = dice_one + dice_two
@@ -59,58 +64,61 @@ def roll_dice():
 
 
 def move_player(old_place):
+
     new_place = (old_place + capital) % 100
     return new_place
 
 
 def camper_item(capital):
     
+    print("Kies 1 van de volgende items om je camper te construeren: ")
+
     while True:
-        camper_str = ", ".join(camper)
+
+        camper_str = "\n".join(camper)
         print(camper_str)
 
-        camper_item = input("Kies 1 van de volgende items om je camper te construeren: ").lower()
+        camper_item = input().lower()
 
         if camper_item == "chassis":
-            print("Je hebt de chassis gekozen.")
+            print("Je hebt de chassis gekozen\n")
             capital -= 60
             break
         elif camper_item == "motor":
-            print("Je hebt de motor gekozen.")
+            print("Je hebt de motor gekozen\n")
             capital -= 20
             break
         elif camper_item == "vier wielen":
-            print("Je hebt de vier wielen gekozen.")
+            print("Je hebt de vier wielen gekozen\n")
             capital -= 5
             break
         elif camper_item == "carrosserie":
-            print("Je hebt de carrosserie gekozen.")
+            print("Je hebt de carrosserie gekozen\n")
             capital -= 20
             break
         elif camper_item == "cabine":
-            print("Je hebt de cabine gekozen.")
+            print("Je hebt de cabine gekozen\n")
             capital -= 30
             break
         elif camper_item == "leefruimte":
-            print("Je hebt de leefruimte gekozen.")
+            print("Je hebt de leefruimte gekozen\n")
             capital -= 45
             break
         elif camper_item == "wc":
-            print("Je hebt de wc gekozen.")
+            print("Je hebt de wc gekozen\n")
             capital -= 5
             break
         else:
-            print("Kies 1 van de opties.")
+            print("Je moet één van deze opties kiezen: ")
             continue
 
     return capital
 
 
 def car_accident_box(capital):
-    print("Je hebt helaas autopech. Je moet 250 florins betalen.")
+    print("Je hebt helaas autopech \nJe moet 250 florins betalen \n")
     
     capital -= 250
-    print("Je budget is nu:", capital)
     
     return capital
 
@@ -123,78 +131,77 @@ def pay_player(cost, owner):
         global capital_player_two 
         capital_player_two += cost
 
+
 def build_accommodation(player, position, capital):
 
     property_player = purchased_boxes.get(position)
 
+    print("Kies een accomodatie om te bouwen: ")
+
     while True:
 
-        camper_str = ", ".join(camper)
-        print(camper_str)
+        accommodation_str = "\n".join(accommodation)
+        print(accommodation_str)
 
-        choose_accommodation = input("Kies een accommodatie. Als je niks wilt bouwen kies dan n ").lower()
+        choose_accommodation = input("Als je niks wilt bouwen kies dan n \n").lower()
+
         if choose_accommodation == "tent":
             if property_player and property_player == player:
                 print("In dit vakje staat al een tent")
             elif property_player:
-                print(f"In dit vakje staat de tent van {property_player}. {player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de tent van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 25
                 pay_player(25, property_player)
             else:
-                print("Je hebt voor de tent gekozen.")
+                print("Je hebt voor de tent gekozen")
                 capital -= 50
-                print("Je budget is nu:", capital)
             break
         elif choose_accommodation == "caravan":
             if property_player == player:
                 print("In dit vakje staat al een caravan")
             elif property_player:
-                print(f"In dit vakje staat de caravan van {property_player}. {player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de caravan van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 50
                 pay_player(50, property_player)
             else:
                 capital -= 100
-                print("Je hebt voor de caravan gekozen.")
-                print("Je budget is nu:", capital)
+                print("Je hebt voor de caravan gekozen")
             break
         elif choose_accommodation == "bungalow":
             if property_player == player:
                 print("In dit vakje staat al een bungalow")
             elif property_player:
-                print(f"In dit vakje staat de bungalow van {property_player}. {player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de bungalow van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 250
                 pay_player(250, property_player)
             else:
-                print("Je hebt voor de bungalow gekozen.")
+                print("Je hebt voor de bungalow gekozen")
                 capital -= 500
-                print("Je budget is nu:", capital)
             break
         elif choose_accommodation == "vakantie villa":
             if property_player == player:
                 print("In dit vakje staat al een vakantie villa")
             elif property_player:
-                print(f"In dit vakje staat de vakantie villa van {property_player}. {player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de vakantie villa van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 500
                 pay_player(500, property_player)
             else:
-                print("Je hebt voor de vakantie villa gekozen.")
+                print("Je hebt voor de vakantie villa gekozen")
                 capital -= 1000
-                print("Je budget is nu:", capital)
             break
         elif choose_accommodation == "n":
-            print("Je wilt geen accommodatie bouwen. De volgende speler is aan de beurt.")
+            print("Je wilt geen accommodatie bouwen \nDe volgende speler is aan de beurt \n")
             return capital
         else:
-            print("Kies 1 van de opties.")
+            print("Je moet één van deze opties kiezen: ")
             continue
 
     purchased_boxes[position] = player
-    # print(purchased_boxes)
     return capital
 
 
 def quiz(capital):
-    print("Je krijgt een multiplechoice vraag. Hiermee kan je geld verdienen.")
+    print("Je krijgt een multiplechoice vraag \nHiermee kan je geld verdienen")
     # A random question is put in the variable
     random_question = (random.choice(question))
     correct_answer = random_question[2]
@@ -205,9 +212,11 @@ def quiz(capital):
     # It is true when the user input is the same as the asnwer
     if answer == random_question[2]:
         capital += 200
-        print(f"Gefeliciteerd! Je hebt 200 florins verdiend. \nJe budget is nu {capital}")
+        print(f"Gefeliciteerd! Je hebt 200 florins verdiend \n")
     else:
-        print(f"Helaas het antwoord was {correct_answer}.")
+        print(f"Helaas het antwoord was {correct_answer} \n")
+    
+    return capital
 
 def meaning_box(player, position, capital):
     if position % 5 == 0:
@@ -228,32 +237,41 @@ def meaning_box(player, position, capital):
     return new_capital
 
 
+print_board()
+
 while True:
     move_num += 1
-    player_turn = "PLAYER" + " " + str(move_num % 2 - 2)[1:]
-    roll = input(f"{player_turn} Roll the dice using r: ")
+    player_turn = "SPELER" + " " + str(move_num % 2 - 2)[1:]
+    roll = input(f"\n{player_turn} gebruik r om twee dobbelstenen te rollen: ")
+
     if roll == "r":
         dice_one, dice_two, capital = roll_dice()
-        dice_roll = f"Dice 1: {dice_one}, Dice 2: {dice_two}"
+        dice_roll = f"Je hebt {dice_one} en {dice_two} gedobbeld"
 
         if move_num % 2 == 0:
             position_player_two = move_player(position_player_two)
+            old_capital = capital_player_two
             capital_player_two += capital
 
+            print(f"\n{dice_roll} \nJe positie is nu {position_player_two} \n")
+
+            time.sleep(1)
             capital_player_two = meaning_box(player_turn, position_player_two, capital_player_two)
 
-            print(f"PLAYER 2:\n {dice_roll} \n New position: {position_player_two} \n New capital: {capital_player_two}")
+            print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_two} florins ")
 
         elif move_num % 2 != 0:
             position_player_one = move_player(position_player_one)
+            old_capital = capital_player_one
             capital_player_one += capital
 
+            print(f"\n{dice_roll} \nJe positie is nu {position_player_one} \n")
+
+            time.sleep(1)
             capital_player_one = meaning_box(player_turn, position_player_one, capital_player_one)
 
-            print(f"PLAYER 1:\n {dice_roll} \n New position: {position_player_one} \n New capital: {capital_player_one}")
+            print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_one} florins ")
 
-    elif roll != "r":
-        print("Input error")
-        move_num -= 1
     else:
-        print("Fail")
+        print("Invoer fout")
+        move_num -= 1
