@@ -7,16 +7,20 @@ position_player_two = 0
 capital_player_one = 1000
 capital_player_two = 1000
 move_num = 0
-budget = 1000
-camper = [
-    "Chassis - 60 florins",
-    "Motor - 20 florins",
-    "Vier wielen - 5 florins",
-    "Carrosserie - 20 florins",
-    "Cabine - 30 florins",
-    "Leefruimte - 45 florins",
-    "WC - 5 florins"
-]
+camper_player_one = {"Chassis": 0, 
+          "Motor": 0, 
+          "Vier wielen": 0, 
+          "Carrosserie": 0, 
+          "Cabine": 0, 
+          "Leefruimte": 0,
+          "WC": 0}
+camper_player_one = {"Chassis": 0, 
+          "Motor": 0, 
+          "Vier wielen": 0, 
+          "Carrosserie": 0, 
+          "Cabine": 0, 
+          "Leefruimte": 0,
+          "WC": 0}
 accommodation = [
     "Tent - 50 florins",
     "Caravan - 100 florins",
@@ -71,46 +75,8 @@ def move_player(old_place):
 
 def camper_item(capital):
     
-    print("Kies 1 van de volgende items om je camper te construeren: ")
-
-    while True:
-
-        camper_str = "\n".join(camper)
-        print(camper_str)
-
-        camper_item = input().lower()
-
-        if camper_item == "chassis":
-            print("Je hebt de chassis gekozen\n")
-            capital -= 60
-            break
-        elif camper_item == "motor":
-            print("Je hebt de motor gekozen\n")
-            capital -= 20
-            break
-        elif camper_item == "vier wielen":
-            print("Je hebt de vier wielen gekozen\n")
-            capital -= 5
-            break
-        elif camper_item == "carrosserie":
-            print("Je hebt de carrosserie gekozen\n")
-            capital -= 20
-            break
-        elif camper_item == "cabine":
-            print("Je hebt de cabine gekozen\n")
-            capital -= 30
-            break
-        elif camper_item == "leefruimte":
-            print("Je hebt de leefruimte gekozen\n")
-            capital -= 45
-            break
-        elif camper_item == "wc":
-            print("Je hebt de wc gekozen\n")
-            capital -= 5
-            break
-        else:
-            print("Je moet één van deze opties kiezen: ")
-            continue
+    camper_keys = list(camper.keys())
+    random_item = random.choice(camper_keys)
 
     return capital
 
@@ -147,54 +113,54 @@ def build_accommodation(player, position, capital):
 
         if choose_accommodation == "tent":
             if property_player and property_player == player:
-                print("In dit vakje staat al een tent")
+                print("In dit vakje staat al een tent \n")
             elif property_player:
-                print(f"In dit vakje staat de tent van {property_player} \n{player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de tent van {property_player} \n{player} moet betalen aan {property_player} \n")
                 capital -= 25
                 pay_player(25, property_player)
             elif capital < 50:
-                print("Je hebt niet genoeg florins om de bungalow te bouwen")
+                print("Je hebt niet genoeg florins om de bungalow te bouwen \n")
             else:
-                print("Je hebt voor de tent gekozen")
+                print("Je hebt voor de tent gekozen \n")
                 capital -= 50
             break
         elif choose_accommodation == "caravan":
             if property_player == player:
-                print("In dit vakje staat al een caravan")
+                print("In dit vakje staat al een caravan \n")
             elif property_player:
-                print(f"In dit vakje staat de caravan van {property_player} \n{player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de caravan van {property_player} \n{player} moet betalen aan {property_player} \n")
                 capital -= 50
                 pay_player(50, property_player)
             elif capital < 100:
-                print("Je hebt niet genoeg florins om de bungalow te bouwen")
+                print("Je hebt niet genoeg florins om de bungalow te bouwen \n")
             else:
                 capital -= 100
-                print("Je hebt voor de caravan gekozen")
+                print("Je hebt voor de caravan gekozen \n")
             break
         elif choose_accommodation == "bungalow":
             if property_player == player:
-                print("In dit vakje staat al een bungalow")
+                print("In dit vakje staat al een bungalow \n")
             elif property_player:
-                print(f"In dit vakje staat de bungalow van {property_player} \n{player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de bungalow van {property_player} \n{player} moet betalen aan {property_player} \n")
                 capital -= 250
                 pay_player(250, property_player)
             elif capital < 500:
-                print("Je hebt niet genoeg florins om de bungalow te bouwen")
+                print("Je hebt niet genoeg florins om de bungalow te bouwen \n")
             else:
-                print("Je hebt voor de bungalow gekozen")
+                print("Je hebt voor de bungalow gekozen \n")
                 capital -= 500
             break
         elif choose_accommodation == "vakantie villa":
             if property_player == player:
-                print("In dit vakje staat al een vakantie villa")
+                print("In dit vakje staat al een vakantie villa \n")
             elif property_player:
-                print(f"In dit vakje staat de vakantie villa van {property_player} \n{player} moet betalen aan {property_player}")
+                print(f"In dit vakje staat de vakantie villa van {property_player} \n{player} moet betalen aan {property_player} \n")
                 capital -= 500
                 pay_player(500, property_player)
             elif capital < 1000:
-                print("Je hebt niet genoeg florins om de vakantie villa te bouwen")
+                print("Je hebt niet genoeg florins om de vakantie villa te bouwen \n")
             else:
-                print("Je hebt voor de vakantie villa gekozen")
+                print("Je hebt voor de vakantie villa gekozen \n")
                 capital -= 1000
             break
         elif choose_accommodation == "n":
