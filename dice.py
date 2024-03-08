@@ -14,7 +14,7 @@ camper_player_one = {"Chassis": 0,
           "Cabine": 0, 
           "Leefruimte": 0,
           "WC": 0}
-camper_player_one = {"Chassis": 0, 
+camper_player_two = {"Chassis": 0, 
           "Motor": 0, 
           "Vier wielen": 0, 
           "Carrosserie": 0, 
@@ -73,10 +73,17 @@ def move_player(old_place):
     return new_place
 
 
-def camper_item(capital):
+def camper_item(capital, owner):
     
-    camper_keys = list(camper.keys())
-    random_item = random.choice(camper_keys)
+    if owner[-1] == "1":
+        global camper_player_one
+        camper_keys = list(camper_player_one.keys())
+        random_item = random.choice(camper_keys)
+
+    elif owner[-1] == "2":
+        global camper_player_two 
+        camper_keys = list(camper_player_two.keys())
+        random_item = random.choice(camper_keys)
 
     return capital
 
