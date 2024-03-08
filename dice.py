@@ -152,6 +152,8 @@ def build_accommodation(player, position, capital):
                 print(f"In dit vakje staat de tent van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 25
                 pay_player(25, property_player)
+            elif capital < 50:
+                print("Je hebt niet genoeg florins om de bungalow te bouwen")
             else:
                 print("Je hebt voor de tent gekozen")
                 capital -= 50
@@ -163,6 +165,8 @@ def build_accommodation(player, position, capital):
                 print(f"In dit vakje staat de caravan van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 50
                 pay_player(50, property_player)
+            elif capital < 100:
+                print("Je hebt niet genoeg florins om de bungalow te bouwen")
             else:
                 capital -= 100
                 print("Je hebt voor de caravan gekozen")
@@ -174,6 +178,8 @@ def build_accommodation(player, position, capital):
                 print(f"In dit vakje staat de bungalow van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 250
                 pay_player(250, property_player)
+            elif capital < 500:
+                print("Je hebt niet genoeg florins om de bungalow te bouwen")
             else:
                 print("Je hebt voor de bungalow gekozen")
                 capital -= 500
@@ -185,6 +191,8 @@ def build_accommodation(player, position, capital):
                 print(f"In dit vakje staat de vakantie villa van {property_player} \n{player} moet betalen aan {property_player}")
                 capital -= 500
                 pay_player(500, property_player)
+            elif capital < 1000:
+                print("Je hebt niet genoeg florins om de vakantie villa te bouwen")
             else:
                 print("Je hebt voor de vakantie villa gekozen")
                 capital -= 1000
@@ -213,6 +221,8 @@ def quiz(capital):
     if answer == random_question[2]:
         capital += 200
         print(f"Gefeliciteerd! Je hebt 200 florins verdiend \n")
+    elif answer != "A" or answer != "B" or answer != "C":
+        print("Invoer fout \nKies A, B of C")
     else:
         print(f"Helaas het antwoord was {correct_answer} \n")
     
@@ -242,7 +252,7 @@ print_board()
 while True:
     move_num += 1
     player_turn = "SPELER" + " " + str(move_num % 2 - 2)[1:]
-    roll = input(f"\n{player_turn} gebruik r om twee dobbelstenen te rollen: ")
+    roll = input(f"\n{player_turn} gebruik r om twee dobbelstenen te rollen: ").lower()
 
     if roll == "r":
         dice_one, dice_two, capital = roll_dice()
