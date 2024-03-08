@@ -77,13 +77,30 @@ def camper_item(capital, owner):
     
     if owner[-1] == "1":
         global camper_player_one
-        camper_keys = list(camper_player_one.keys())
-        random_item = random.choice(camper_keys)
+        
+        while True:
+            camper_keys = list(camper_player_one.keys())
+            random_item = random.choice(camper_keys)
+            count_item = camper_player_one[random_item]
+
+            if count_item == 3:
+                continue
+            
+            elif not 0 in camper_player_one.values():
+                print("gefeliciteerd je kan een camper construeren!")
+                print(camper_player_one)
+                break
+
+            else:
+                print(f"Je hebt {random_item} gevonden")
+                camper_player_one[random_item] += 1
 
     elif owner[-1] == "2":
-        global camper_player_two 
-        camper_keys = list(camper_player_two.keys())
-        random_item = random.choice(camper_keys)
+        global camper_player_two
+
+        while True:
+            camper_keys = list(camper_player_two.keys())
+            random_item = random.choice(camper_keys)
 
     return capital
 
