@@ -73,34 +73,48 @@ def move_player(old_place):
     return new_place
 
 
-def camper_item(capital, owner):
-    
-    if owner[-1] == "1":
-        global camper_player_one
-        
-        while True:
-            camper_keys = list(camper_player_one.keys())
-            random_item = random.choice(camper_keys)
-            count_item = camper_player_one[random_item]
+def item_shop(capital, owner):
 
-            if count_item == 3:
-                continue
-            
-            elif not 0 in camper_player_one.values():
-                print("gefeliciteerd je kan een camper construeren!")
-                print(camper_player_one)
-                break
+    print("Kies 1 van de volgende items om je camper te construeren: ")
 
-            else:
-                print(f"Je hebt {random_item} gevonden")
-                camper_player_one[random_item] += 1
+    while True:
 
-    elif owner[-1] == "2":
-        global camper_player_two
+        camper_str = "\n".join(camper)
+        print(camper_str)
 
-        while True:
-            camper_keys = list(camper_player_two.keys())
-            random_item = random.choice(camper_keys)
+        camper_item = input().lower()
+
+        if camper_item == "chassis":
+            print("Je hebt de chassis gekozen\n")
+            capital -= 60
+            break
+        elif camper_item == "motor":
+            print("Je hebt de motor gekozen\n")
+            capital -= 20
+            break
+        elif camper_item == "vier wielen":
+            print("Je hebt de vier wielen gekozen\n")
+            capital -= 5
+            break
+        elif camper_item == "carrosserie":
+            print("Je hebt de carrosserie gekozen\n")
+            capital -= 20
+            break
+        elif camper_item == "cabine":
+            print("Je hebt de cabine gekozen\n")
+            capital -= 30
+            break
+        elif camper_item == "leefruimte":
+            print("Je hebt de leefruimte gekozen\n")
+            capital -= 45
+            break
+        elif camper_item == "wc":
+            print("Je hebt de wc gekozen\n")
+            capital -= 5
+            break
+        else:
+            print("Je moet één van deze opties kiezen: ")
+            continue
 
     return capital
 
@@ -218,9 +232,42 @@ def quiz(capital):
     
     return capital
 
+
+def item_found(capital, owner):
+
+    if owner[-1] == "1":
+        global camper_player_one
+        
+        while True:
+            camper_keys = list(camper_player_one.keys())
+            random_item = random.choice(camper_keys)
+            count_item = camper_player_one[random_item]
+
+            if count_item == 3:
+                continue
+            
+            elif not 0 in camper_player_one.values():
+                print("gefeliciteerd je kan een camper construeren!")
+                print(camper_player_one)
+                break
+
+            else:
+                print(f"Je hebt {random_item} gevonden")
+                camper_player_one[random_item] += 1
+
+    elif owner[-1] == "2":
+        global camper_player_two
+
+        while True:
+            camper_keys = list(camper_player_two.keys())
+            random_item = random.choice(camper_keys)
+    
+    return capital
+
+
 def meaning_box(player, position, capital):
     if position % 5 == 0:
-        new_capital = camper_item(capital)
+        new_capital = item_shop(capital)
 
     elif position == 26 or position == 46 or position == 66 or position == 86:
         new_capital = car_accident_box(capital)
@@ -230,6 +277,10 @@ def meaning_box(player, position, capital):
 
     elif position % 10 == 8 and position != 18 and position != 38 and position != 58 and position != 78:
         new_capital = quiz(capital)
+
+    elif position % 10 == 9:
+        new_capital
+
 
     else:
         return capital
