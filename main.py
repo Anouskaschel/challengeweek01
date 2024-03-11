@@ -106,7 +106,7 @@ if __name__ == "__main__":
         player_turn = "SPELER" + " " + str(move_num % 2 - 2)[1:]
         roll = input(f"\n{player_turn} gebruik r om twee dobbelstenen te rollen: ").lower()
 
-        if capital_player_one > 5000 or capital_player_two > 5000:
+        if capital_player_one < 5000 or capital_player_two < 5000:
             print(player_turn)
 
             if roll == "r":
@@ -142,5 +142,5 @@ if __name__ == "__main__":
                 print("Invoer fout")
                 move_num -= 1
         else:
-            print("Gefeliciteerd {player_turn}!")
+            print(f"Gefeliciteerd {player_turn}!")
             exit()
