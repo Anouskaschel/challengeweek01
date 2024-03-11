@@ -10,8 +10,8 @@ import time
 
 # REGISTRATION
 
-position_player_one = 0
-position_player_two = 0
+position_player_one = 1
+position_player_two = 1
 capital_player_one = 1000
 capital_player_two = 1000
 move_num = 0
