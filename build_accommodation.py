@@ -1,5 +1,4 @@
 
-
 accommodation = [
     "Tent - 50 florins",
     "Caravan - 100 florins",
@@ -29,7 +28,7 @@ def build_accommodation(player, position, capital, registration):
                 print("In dit vakje staat al een tent \n")
             
             elif property_player:
-                print(f"In dit vakje staat de tent van {property_player} \n{player} moet betalen aan {property_player} \n")
+                print(f"In dit vakje staat de {choose_accommodation} van {property_player} \n{player} moet betalen aan {property_player} \n")
                 capital -= price // 2
                 profit = price // 2
 
@@ -47,7 +46,7 @@ def build_accommodation(player, position, capital, registration):
             break
         
         else:
-            print("Je moet één van deze opties kiezen: ")
+            print("\nJe moet één van deze opties kiezen: ")
             continue
 
     return capital, property_player, profit
