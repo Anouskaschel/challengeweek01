@@ -10,6 +10,7 @@ accommodation = [
 def build_accommodation(player, position, capital, registration):
 
     profit = 0
+    property_player = None
     print("Kies een accomodatie om te bouwen: ")
 
     while True:
@@ -38,6 +39,7 @@ def build_accommodation(player, position, capital, registration):
             else:
                 print(f"Je hebt voor de {choose_accommodation} gekozen \n")
                 capital -= price
+                registration[choose_accommodation]["purchased_boxes"][position] = player
             break
         
         elif choose_accommodation == "n":
@@ -48,5 +50,4 @@ def build_accommodation(player, position, capital, registration):
             print("Je moet één van deze opties kiezen: ")
             continue
 
-    registration[choose_accommodation]["purchased_boxes"][position] = player
     return capital, property_player, profit
