@@ -106,35 +106,41 @@ if __name__ == "__main__":
         player_turn = "SPELER" + " " + str(move_num % 2 - 2)[1:]
         roll = input(f"\n{player_turn} gebruik r om twee dobbelstenen te rollen: ").lower()
 
-        if roll == "r":
-            dice_one, dice_two, capital = roll_dice()
-            dice_roll = f"Je hebt {dice_one} en {dice_two} gedobbeld"
+        if capital_player_one != 5000 or capital_player_two != 5000:
+            print(player_turn)
 
-            if move_num % 2 == 0:
-                position_player_two = move_player(position_player_two)
-                old_capital = capital_player_two
-                capital_player_two += capital
+            if roll == "r":
+                dice_one, dice_two, capital = roll_dice()
+                dice_roll = f"Je hebt {dice_one} en {dice_two} gedobbeld"
 
-                print(f"\n{dice_roll} \nJe positie is nu {position_player_two} \n")
+                if move_num % 2 == 0:
+                    position_player_two = move_player(position_player_two)
+                    old_capital = capital_player_two
+                    capital_player_two += capital
 
-                time.sleep(1)
-                capital_player_two = meaning_of_box(player_turn, position_player_two, capital_player_two)
+                    print(f"\n{dice_roll} \nJe positie is nu {position_player_two} \n")
 
-                print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_two} florins ")
+                    time.sleep(1)
+                    capital_player_two = meaning_of_box(player_turn, position_player_two, capital_player_two)
 
-            elif move_num % 2 != 0:
-                position_player_one = move_player(position_player_one)
-                old_capital = capital_player_one
-                capital_player_one += capital
+                    print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_two} florins ")
 
-                print(f"\n{dice_roll} \nJe positie is nu {position_player_one} \n")
+                elif move_num % 2 != 0:
+                    position_player_one = move_player(position_player_one)
+                    old_capital = capital_player_one
+                    capital_player_one += capital
 
-                time.sleep(1)
-                capital_player_one = meaning_of_box(player_turn, position_player_one, capital_player_one)
+                    print(f"\n{dice_roll} \nJe positie is nu {position_player_one} \n")
 
-                print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_one} florins ")
-        elif roll == "q":
-            exit()
+                    time.sleep(1)
+                    capital_player_one = meaning_of_box(player_turn, position_player_one, capital_player_one)
+
+                    print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_one} florins ")
+            elif roll == "q":
+                exit()
+            else:
+                print("Invoer fout")
+                move_num -= 1
         else:
-            print("Invoer fout")
-            move_num -= 1
+            print("Gefeliciteerd {player_turn}!")
+            exit()
