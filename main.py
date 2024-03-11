@@ -107,7 +107,6 @@ if __name__ == "__main__":
         roll = input(f"\n{player_turn} gebruik r om twee dobbelstenen te rollen: ").lower()
 
         if capital_player_one < 5000 or capital_player_two < 5000:
-            print(player_turn)
 
             if roll == "r":
                 dice_one, dice_two, capital = roll_dice()
