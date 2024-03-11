@@ -133,7 +133,8 @@ if __name__ == "__main__":
                 capital_player_one = meaning_of_box(player_turn, position_player_one, capital_player_one)
 
                 print(f"Je oude budget was {old_capital} florins \nJe budget is nu {capital_player_one} florins ")
-
+        elif roll == "q":
+            exit()
         else:
             print("Invoer fout")
             move_num -= 1
